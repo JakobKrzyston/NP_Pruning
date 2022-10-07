@@ -130,6 +130,18 @@ class SNIP(Pruner):
         for _, p in self.masked_parameters:
             self.scores[id(p)].div_(norm)
 
+class IMP(Pruner):
+    def __init__(self, masked_parameters):
+        super(IMP, self).__init__(masked_parameters)
+
+    def score(self,model,loss,dataloader,device):
+        #I think the steps here for IMP are:
+        #Compute neural persistence for each layer
+        #Zero out masks based on ranking
+        #Evaluate network
+        #I can't really easily decipher the code in topological_nn_measures.py, so I need help there.
+        #Then modify self.scores
+        #Baseline pruner class will then apply mask changes from what I can see.
 
 # Based on https://github.com/alecwangcq/GraSP/blob/master/pruner/GraSP.py#L49
 class GraSP(Pruner):
